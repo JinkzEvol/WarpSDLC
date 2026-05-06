@@ -1,44 +1,71 @@
-# Warp APM Package Staging Repo
+# WarpSDLC — APM Skill Bundle
 
-This repository is a staging area for an APM package derived from selected, approved content in the upstream Warp repository.
+A portable, sanitized SDLC skill bundle for [APM](https://aka.ms/apm). Drop a production-grade software development lifecycle into any host repo in one command.
 
-Current status:
+## Install
 
-- Not publish-ready
-- No public release or npm publish should occur until the compliance checklist passes
-- Upstream source content must be copied into this repo by allowlist only
+```bash
+apm install JinkzEvol/WarpSDLC --target agent-skills
+```
 
-Goals:
+This installs 24 skills into `.agents/skills/` in your project. No configuration required to get started.
 
-- Produce a public GitHub repository that can be consumed with `apm install <owner>/<repo>`
-- Keep a file-level provenance record for every shipped artifact
-- Prevent accidental inclusion of AGPL-covered or otherwise unapproved content
-- Preserve the option to publish an npm package later, but only after license review is complete
+Pin to a specific release to prevent drift:
 
-Recommended packaging model:
+```bash
+apm install JinkzEvol/WarpSDLC#v0.1.0 --target agent-skills
+```
 
-- Use an APM skill collection layout under `skills/<name>/SKILL.md` for approved skills
-- Keep compliance and provenance records in `docs/`
-- Treat the upstream `warp/` clone as read-only source material
+## What's included
 
-Working layout:
+24 skills organized into four tiers:
 
-- `apm.yml` - APM package manifest
-- `package.json` - Private npm metadata for future packaging work
-- `skills/` - Approved skill packages go here
-- `templates/` - Authoring templates only; not distributed content
-- `docs/` - Compliance, provenance, and extraction records
-- `quality/criteria.md` - Quality gate for this package repo
-- `scripts/` - Local validation helpers for staging work
+| Tier | Skills | Use when |
+|---|---|---|
+| **Portable core** (10) | `write-product-spec-san`, `write-tech-spec-san`, `spec-driven-implementation-san`, `implement-specs-san`, `create-pr-san`, `review-pr-san`, `fix-errors-san`, `diagnose-ci-failures-san`, `resolve-merge-conflicts-san`, `update-skill-san` | Any host — these work out of the box once you fill in the binding variables |
+| **Host adapters** (7) | `review-pr-local-san`, `add-feature-flag-san`, `promote-feature-san`, `remove-feature-flag-san`, `add-telemetry-san`, `triage-issue-local-san`, `dedupe-issue-local-san` | After you've configured your host repo conventions |
+| **Bench-ready** (4) | `rust-unit-tests-san`, `warp-integration-test-san`, `integration-test-video-san`, `warp-ui-guidelines-san` | Only when a matching runtime exists in the host — the transplant operator will bench these automatically if not |
+| **Orchestration** (3) | `warp-transplant-grow`, `sanitize-warp-sdlc`, `package-compliance-review` | Package-level tooling; used to stage, validate, and evolve the bundle itself |
 
-Before adding any skill content, start with [EXECUTION_CHECKLIST.md](./EXECUTION_CHECKLIST.md).
+### Transplant operator agent
 
-Useful working docs:
+The `warp-transplant-grow` skill includes a bundled agent — `warp-transplant-grow.agent.md` — that deploys alongside the skill into `.agents/skills/warp-transplant-grow/agents/`. Use it to drive the initial transplant of the SDLC into a new host repo: it checks bindings, routes bench-ready skills, and produces a `transplant-report.md`.
 
-- `docs/candidate-inventory.md` - first-pass list of upstream Warp skill candidates
-- `docs/provenance-matrix.md` - file-level approval state
-- `docs/allowlist.md` - only paths allowed to be copied
-- `docs/release-readiness.md` - pre-publication gates for GitHub and npm
-- `docs/local-validation.md` - local APM validation workflow using APM v0.12.2
-- `docs/warp-sdlc/report.md` - full Warp SDLC transplant report and file map
-- `docs/warp-sdlc/genesis-architect-review.md` - architecture gate for the transplant package
+## Activating the portable core
+
+Each portable-core skill uses placeholder bindings that you replace with your host repo's values. The full set of required bindings is in [`skills/warp-transplant-grow/references/transplant-package-manifest.json`](./skills/warp-transplant-grow/references/transplant-package-manifest.json).
+
+The key bindings most skills need:
+
+| Placeholder | What to fill in |
+|---|---|
+| `HOST_SPEC_ROOT` | Path where product/tech specs live in your repo |
+| `HOST_TASK_SYSTEM` | Your issue tracker (e.g. GitHub Issues, Linear) |
+| `HOST_BASE_BRANCH` | Your default branch (e.g. `main`) |
+| `HOST_BUILD_COMMAND` | Command to build the project |
+| `HOST_TEST_COMMAND` | Command to run tests |
+| `HOST_LINT_COMMAND` | Command to lint |
+| `HOST_CI_PROVIDER` | CI system (e.g. GitHub Actions) |
+
+## Repository layout
+
+```
+apm.yml                        APM package manifest
+skills/                        The 24 installable skill directories
+  <skill-name>/
+    SKILL.md                   Skill definition (consumed by APM)
+    agents/                    Optional agent sidecars
+    references/                Bundled reference docs
+SDLC-bench/                    Holding area for skills benched during transplant
+templates/                     Authoring templates (not distributed)
+docs/                          Provenance, compliance, and validation records
+scripts/                       Local validation helpers
+```
+
+## Docs
+
+- [`docs/warp-sdlc/report.md`](./docs/warp-sdlc/report.md) — Full transplant report and design rationale
+- [`docs/provenance-matrix.md`](./docs/provenance-matrix.md) — File-level provenance for every shipped artifact
+- [`docs/release-readiness.md`](./docs/release-readiness.md) — Publication gate checklist
+- [`docs/local-validation.md`](./docs/local-validation.md) — Local APM validation workflow
+- [`EXECUTION_CHECKLIST.md`](./EXECUTION_CHECKLIST.md) — Step-by-step gate checklist for contributors
