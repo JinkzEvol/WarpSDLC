@@ -1,3 +1,6 @@
 name: warpsdlc
 version: 0.1.0
 description: "Sanitized Warp SDLC skill bundle. Install with: apm install JinkzEvol/WarpSDLC"
+license: Apache-2.0
+repository: https://github.com/JinkzEvol/WarpSDLC
+homepage: https://github.com/JinkzEvol/WarpSDLC/tree/main/warp-apm-package

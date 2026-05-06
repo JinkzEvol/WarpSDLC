@@ -8,28 +8,46 @@ A portable, sanitized SDLC skill bundle for [APM](https://aka.ms/apm). Drop a pr
 apm install JinkzEvol/WarpSDLC --target agent-skills
 ```
 
-This installs 24 skills into `.agents/skills/` in your project. No configuration required to get started.
+This installs 27 skills into `.agents/skills/` in your project. No configuration required to get started.
 
 Pin to a specific release to prevent drift:
 
 ```bash
-apm install JinkzEvol/WarpSDLC#v0.1.0 --target agent-skills
+apm install JinkzEvol/WarpSDLC#v0.2.0 --target agent-skills
 ```
 
 ## What's included
 
-24 skills organized into four tiers:
+27 skills organized into six tiers:
 
 | Tier | Skills | Use when |
 |---|---|---|
 | **Portable core** (10) | `write-product-spec-san`, `write-tech-spec-san`, `spec-driven-implementation-san`, `implement-specs-san`, `create-pr-san`, `review-pr-san`, `fix-errors-san`, `diagnose-ci-failures-san`, `resolve-merge-conflicts-san`, `update-skill-san` | Any host — these work out of the box once you fill in the binding variables |
 | **Host adapters** (7) | `review-pr-local-san`, `add-feature-flag-san`, `promote-feature-san`, `remove-feature-flag-san`, `add-telemetry-san`, `triage-issue-local-san`, `dedupe-issue-local-san` | After you've configured your host repo conventions |
 | **Bench-ready** (4) | `rust-unit-tests-san`, `warp-integration-test-san`, `integration-test-video-san`, `warp-ui-guidelines-san` | Only when a matching runtime exists in the host — the transplant operator will bench these automatically if not |
-| **Orchestration** (3) | `warp-transplant-grow`, `sanitize-warp-sdlc`, `package-compliance-review` | Package-level tooling; used to stage, validate, and evolve the bundle itself |
+| **Orchestration** (3) | `warp-transplant-grow`, `sanitize-warp-sdlc`, `package-compliance-review` | Package-level tooling used to stage, validate, and evolve the bundle itself |
+| **Layered transplant utilities** (2) | `transplant-policy-pack`, `transplant-workflow-pack` | Activated by `warp-transplant-grow` for policy and workflow layers |
+| **Architecture optimization** (1) | `genesis` + `genesis-architect` agent mode | Post-transplant troubleshooting, primitive design quality, and SDLC improvement loops |
+
+## Layered transplant modes
+
+`warp-transplant-grow` now performs a host repo analysis first, then recommends a mode, then shows a preview of what will happen before activation:
+
+- `skills-only`: portable core + eligible adapters + bench routing
+- `skills-plus-policy`: `skills-only` plus policy/process scaffold generation
+- `full-core`: `skills-plus-policy` plus workflow automation scaffolds and optional Genesis architecture hardening
+
+Mode selection is evidence-based and written to:
+
+- `transplant-analysis.md`
+- `transplant-recommendation.md`
+- `transplant-preview.md`
 
 ### Transplant operator agent
 
 The `warp-transplant-grow` skill includes a bundled agent — `warp-transplant-grow.agent.md` — that deploys alongside the skill into `.agents/skills/warp-transplant-grow/agents/`. Use it to drive the initial transplant of the SDLC into a new host repo: it checks bindings, routes bench-ready skills, and produces a `transplant-report.md`.
+
+The package also includes the `genesis` skill and `genesis-architect` agent mode under `.agents/skills/genesis/` for post-transplant architecture refactors and SDLC primitive quality improvements.
 
 ## Activating the portable core
 
@@ -51,7 +69,7 @@ The key bindings most skills need:
 
 ```
 apm.yml                        APM package manifest
-skills/                        The 24 installable skill directories
+skills/                        The 27 installable skill directories
   <skill-name>/
     SKILL.md                   Skill definition (consumed by APM)
     agents/                    Optional agent sidecars
@@ -69,3 +87,7 @@ scripts/                       Local validation helpers
 - [`docs/release-readiness.md`](./docs/release-readiness.md) — Publication gate checklist
 - [`docs/local-validation.md`](./docs/local-validation.md) — Local APM validation workflow
 - [`EXECUTION_CHECKLIST.md`](./EXECUTION_CHECKLIST.md) — Step-by-step gate checklist for contributors
+
+## License
+
+This package is licensed under Apache-2.0. See [`LICENSE`](./LICENSE) and [`NOTICE`](./NOTICE).

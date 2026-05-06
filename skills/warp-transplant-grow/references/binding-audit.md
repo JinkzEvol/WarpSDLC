@@ -15,6 +15,10 @@ Audit process:
 	satisfied; otherwise defer or bench it.
 4. For each bench-ready skill, default to bench unless the required bindings are
 	satisfied and the host opts in.
+5. For mode-specific utility skills:
+	- `transplant-policy-pack`: run only for `skills-plus-policy` and `full-core`.
+	- `transplant-workflow-pack`: run only for `full-core`.
+	- `genesis`: optional enablement for architecture optimization after transplant.
 
 Audit rule:
 

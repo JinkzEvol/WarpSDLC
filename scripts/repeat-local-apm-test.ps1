@@ -27,6 +27,10 @@ $requiredPaths = @(
     ".agents\skills\warp-transplant-grow\SKILL.md",
     ".agents\skills\warp-transplant-grow\agents\warp-transplant-grow.agent.md",
     ".agents\skills\warp-transplant-grow\references\transplant-package-manifest.json",
+    ".agents\skills\transplant-policy-pack\SKILL.md",
+    ".agents\skills\transplant-workflow-pack\SKILL.md",
+    ".agents\skills\genesis\SKILL.md",
+    ".agents\skills\genesis\agents\genesis-architect.agent.md",
     ".agents\skills\sanitize-warp-sdlc\references\analysis\primitive-inventory.md",
     ".agents\skills\sanitize-warp-sdlc\references\analysis\sanitization-matrix.md",
     ".agents\skills\sanitize-warp-sdlc\references\analysis\placeholder-catalog.md",
@@ -41,8 +45,8 @@ foreach ($relativePath in $requiredPaths) {
 }
 
 $skillDirs = Get-ChildItem ".agents\skills" -Directory
-if ($skillDirs.Count -ne 24) {
-    throw "Expected 24 installed skill directories, found $($skillDirs.Count)"
+if ($skillDirs.Count -ne 27) {
+    throw "Expected 27 installed skill directories, found $($skillDirs.Count)"
 }
 
 $lockfileText = Get-Content ".\apm.lock.yaml" -Raw

@@ -31,3 +31,15 @@ Bench-ready or conditional:
 - `warp-integration-test-san`
 - `integration-test-video-san`
 - `warp-ui-guidelines-san`
+
+Orchestration utilities:
+
+- `warp-transplant-grow`
+- `sanitize-warp-sdlc`
+- `package-compliance-review`
+
+Layered utilities:
+
+- `transplant-policy-pack`
+- `transplant-workflow-pack`
+- `genesis`

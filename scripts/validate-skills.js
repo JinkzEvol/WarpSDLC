@@ -4,6 +4,13 @@ const path = require("path");
 const repoRoot = path.resolve(__dirname, "..");
 const skillsDir = path.join(repoRoot, "skills");
 const transplantManifestPath = path.join(repoRoot, "transplant-package-manifest.json");
+const bundledTransplantManifestPath = path.join(
+  repoRoot,
+  "skills",
+  "warp-transplant-grow",
+  "references",
+  "transplant-package-manifest.json"
+);
 const placeholderCatalogPath = path.join(repoRoot, "docs", "warp-sdlc", "placeholder-catalog.md");
 
 function fail(message) {
@@ -67,6 +74,19 @@ function readJsonFile(filePath) {
     fail(`Invalid JSON in ${filePath}: ${error.message}`);
     return null;
   }
+}
+
+function stableStringify(value) {
+  if (Array.isArray(value)) {
+    return `[${value.map((entry) => stableStringify(entry)).join(",")}]`;
+  }
+
+  if (value && typeof value === "object") {
+    const sortedKeys = Object.keys(value).sort();
+    return `{${sortedKeys.map((key) => `${JSON.stringify(key)}:${stableStringify(value[key])}`).join(",")}}`;
+  }
+
+  return JSON.stringify(value);
 }
 
 function parsePlaceholderCatalog(filePath) {
@@ -260,7 +280,18 @@ function validateTransplantManifest(manifest, skillDirectoryNames, placeholderCa
 
 const skillDirectories = readDirectoryNames(skillsDir).filter((name) => name !== "README.md");
 const transplantManifest = readJsonFile(transplantManifestPath);
+const bundledTransplantManifest = readJsonFile(bundledTransplantManifestPath);
 const placeholderCatalogIds = parsePlaceholderCatalog(placeholderCatalogPath);
+
+if (transplantManifest && bundledTransplantManifest) {
+  const rootManifestString = stableStringify(transplantManifest);
+  const bundledManifestString = stableStringify(bundledTransplantManifest);
+  if (rootManifestString !== bundledManifestString) {
+    fail(
+      "Root transplant manifest and bundled warp-transplant-grow manifest are out of sync"
+    );
+  }
+}
 
 for (const skillName of skillDirectories) {
   validateSkillDirectory(skillName, transplantManifest?.skills, placeholderCatalogIds);

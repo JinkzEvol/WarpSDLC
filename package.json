@@ -1,17 +1,19 @@
 {
-  "name": "warp-apm-package-staging",
-  "version": "0.0.0",
+  "name": "warpsdlc-apm",
+  "version": "0.1.0",
   "private": true,
-  "description": "Staging metadata for a future Warp-derived APM package. Do not publish until compliance review is complete.",
-  "license": "UNLICENSED",
+  "description": "Sanitized Warp SDLC skill bundle for APM installs.",
+  "license": "Apache-2.0",
   "files": [
     "README.md",
+    "LICENSE",
+    "NOTICE",
     "apm.yml",
     "skills"
   ],
   "scripts": {
     "validate:skills": "node scripts/validate-skills.js",
     "validate:local-apm": "powershell -ExecutionPolicy Bypass -File .\\scripts\\repeat-local-apm-test.ps1",
-    "check:ready": "npm run validate:skills ; node -e \"console.error('This package is staging-only. Complete compliance review before enabling publish scripts.'); process.exit(1)\""
+    "check:ready": "npm run validate:skills"
   }
 }

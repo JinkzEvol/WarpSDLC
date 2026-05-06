@@ -1,10 +1,16 @@
 {
-  "version": 1,
+  "version": 2,
   "agents": {
     "warp-transplant-grow": {
       "path": "skills/warp-transplant-grow/agents/warp-transplant-grow.agent.md",
       "pairedSkill": "warp-transplant-grow",
       "role": "transplantOperator",
+      "status": "active"
+    },
+    "genesis-architect": {
+      "path": "skills/genesis/agents/genesis-architect.agent.md",
+      "pairedSkill": "genesis",
+      "role": "architectureAdvisor",
       "status": "active"
     }
   },
@@ -55,7 +61,10 @@
   },
   "artifacts": {
     "transplantReport": "transplant-report.md",
-    "benchManifest": "SDLC-bench/manifests/<host>-transplant.md"
+    "benchManifest": "SDLC-bench/manifests/<host>-transplant.md",
+    "analysis": "transplant-analysis.md",
+    "recommendation": "transplant-recommendation.md",
+    "preview": "transplant-preview.md"
   },
   "skills": {
     "write-product-spec-san": {
@@ -303,5 +312,69 @@
         "HOST_UI_REVIEW_RULES"
       ]
     }
+  },
+  "utilitySkills": [
+    "warp-transplant-grow",
+    "sanitize-warp-sdlc",
+    "package-compliance-review",
+    "transplant-policy-pack",
+    "transplant-workflow-pack",
+    "genesis"
+  ],
+  "modeProfiles": {
+    "skills-only": {
+      "includes": [
+        "portableCore",
+        "hostAdapters",
+        "benchReady"
+      ],
+      "utilitySkills": [
+        "warp-transplant-grow"
+      ],
+      "description": "Baseline transplant with binding audit, host-adapter gating, and bench routing."
+    },
+    "skills-plus-policy": {
+      "includes": [
+        "portableCore",
+        "hostAdapters",
+        "benchReady"
+      ],
+      "utilitySkills": [
+        "warp-transplant-grow",
+        "transplant-policy-pack"
+      ],
+      "description": "Baseline transplant plus policy and governance scaffolding."
+    },
+    "full-core": {
+      "includes": [
+        "portableCore",
+        "hostAdapters",
+        "benchReady"
+      ],
+      "utilitySkills": [
+        "warp-transplant-grow",
+        "transplant-policy-pack",
+        "transplant-workflow-pack",
+        "genesis"
+      ],
+      "description": "Full transplant with policy, workflow automation, and optional architecture optimization."
+    }
+  },
+  "analysisSignals": {
+    "process": [
+      "pr_template",
+      "issue_taxonomy",
+      "review_contract"
+    ],
+    "automation": [
+      "ci_workflows",
+      "build_lint_test_gates",
+      "artifact_capture"
+    ],
+    "operations": [
+      "feature_flags",
+      "release_channels",
+      "telemetry_schema"
+    ]
   }
 }
