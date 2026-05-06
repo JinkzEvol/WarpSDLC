@@ -2,7 +2,9 @@
 
 A portable, sanitized SDLC skill bundle for [APM](https://aka.ms/apm). Drop a production-grade software development lifecycle into any host repo in one command.
 
-## Built on (prominent acknowledgements)
+![WarpSDLC Diagram](./assets/images/warpsdlc-diagram.png)
+
+## Built on (acknowledgements)
 
 This package is built on and depends on three foundations:
 
