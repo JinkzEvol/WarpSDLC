@@ -2,13 +2,13 @@
 
 This document is the final gate before creating a public GitHub repository or enabling npm publication.
 
-Current state: **v0.1.0 released to GitHub. Public install validated.**
+Current state: **v0.2.0 released to GitHub. Public install validated.**
 
 Known completed evidence:
 
 - Local APM install validation passed against `..\warp-apm-package` using `--target agent-skills`
 - The staged package deploys `package-compliance-review` into `.agents/skills/` in a clean consumer
-- The staged package deploys 24 skill directories and preserves the `warp-transplant-grow` agent sidecar inside the installed skill bundle
+- The package deploys 27 skill directories and preserves both `warp-transplant-grow` and `genesis-architect` sidecars inside the installed skill bundle
 - One upstream Warp skill (`review-pr-local`) has a documented blocked-as-is provenance review
 
 ## Publication targets
@@ -50,7 +50,7 @@ Do not enable npm publication until all of the following are true:
 
 ### Release candidate
 
-- Candidate version: 0.1.0
+- Candidate version: 0.2.0
 - Date: 2026-05-06
 - Reviewer: JinkzEvol
 
@@ -58,15 +58,15 @@ Do not enable npm publication until all of the following are true:
 
 - Ready for public GitHub repo: yes
 - Intended install command: `apm install JinkzEvol/WarpSDLC`
-- Public install validated: yes — 24 skills, agent sidecar confirmed, commit 48ee162e
-- Tag: v0.1.0 at https://github.com/JinkzEvol/WarpSDLC
+- Public install validated: yes — 27 skills, layered references and agent sidecars confirmed, commit fc172c7
+- Tag: v0.2.0 at https://github.com/JinkzEvol/WarpSDLC/releases/tag/v0.2.0
 - Validation evidence location:
 
 ### npm readiness
 
 - Ready for npm publish: yes/no
 - Tarball reviewed: yes/no
-- Final package license:
+- Final package license: Apache-2.0
 
 ### Notes
 

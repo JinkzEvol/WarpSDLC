@@ -55,7 +55,6 @@ Set-Location "<consumer-dir>"
 
 ## Current known limitations
 
-- This validates local installability, not public GitHub shorthand install yet.
 - It does not approve any upstream Warp content for copying.
 - If the final package type changes from a skill collection to another APM layout, these commands must be updated.
 
@@ -93,12 +92,40 @@ Set-Location "e:\VS code projects\warp-sdlc\warp-apm-consumer-smoke"
 	- bundled transplant manifest reference
 	- presence of the `warp-transplant-grow` agent sidecar
 
+### 2026-05-06 (v0.2.0)
+
+- Updated package now includes 27 installed skill directories
+- Added layered-mode references and utility skills:
+	- `transplant-policy-pack`
+	- `transplant-workflow-pack`
+- Added architecture optimization bundle:
+	- `genesis`
+	- `genesis-architect` agent mode
+- Re-ran:
+
+```powershell
+Set-Location "e:\VS code projects\warp-sdlc\warp-apm-package"
+powershell -ExecutionPolicy Bypass -File .\scripts\repeat-local-apm-test.ps1
+```
+
+- Result: success, 27 installed skill directories
+- Ran published-tag install smoke test:
+
+```powershell
+Set-Location "e:\VS code projects\warp-sdlc\warp-apm-consumer-release-smoke"
+& "C:\Users\dalon\AppData\Local\Programs\apm\bin\apm.cmd" install JinkzEvol/WarpSDLC#v0.2.0 --target agent-skills -v
+```
+
+- Result: success, 27 integrated skills from published release tag
+
 ## Current verdict
 
-- Scripted prepublish smoke test (`scripts/repeat-local-apm-test.ps1`): passed, 24 skill directories
+- Scripted prepublish smoke test (`scripts/repeat-local-apm-test.ps1`): passed, 27 skill directories
 - Agent sidecar verified inside installed bundle: `.agents/skills/warp-transplant-grow/agents/warp-transplant-grow.agent.md`
 - Orchestration skill bundled references verified: sanitize analysis refs and transplant manifest
-- Public GitHub shorthand install validation: not yet run
+- Layered-mode references verified in installed bundle: `repo-analysis.md`, `layered-modes.md`, `recommendation-rules.md`
+- Genesis sidecar verified in installed bundle: `.agents/skills/genesis/agents/genesis-architect.agent.md`
+- Public GitHub shorthand install validation: passed (`JinkzEvol/WarpSDLC#v0.2.0`)
 - npm publication validation: not yet run
 
 This same validation workflow should be re-run later against the final release candidate contents before any publish step.
