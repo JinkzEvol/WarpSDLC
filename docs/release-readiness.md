@@ -2,7 +2,7 @@
 
 This document is the final gate before creating a public GitHub repository or enabling npm publication.
 
-Current state: not ready.
+Current state: **v0.1.0 released to GitHub. Public install validated.**
 
 Known completed evidence:
 
@@ -50,14 +50,16 @@ Do not enable npm publication until all of the following are true:
 
 ### Release candidate
 
-- Candidate version:
-- Date:
-- Reviewer:
+- Candidate version: 0.1.0
+- Date: 2026-05-06
+- Reviewer: JinkzEvol
 
 ### GitHub readiness
 
-- Ready for public GitHub repo: yes/no
-- Intended install command:
+- Ready for public GitHub repo: yes
+- Intended install command: `apm install JinkzEvol/WarpSDLC`
+- Public install validated: yes — 24 skills, agent sidecar confirmed, commit 48ee162e
+- Tag: v0.1.0 at https://github.com/JinkzEvol/WarpSDLC
 - Validation evidence location:
 
 ### npm readiness
