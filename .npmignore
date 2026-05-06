@@ -1,0 +1,6 @@
+docs/
+templates/
+quality/
+scripts/
+EXECUTION_CHECKLIST.md
+*.log

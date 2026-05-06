@@ -1,0 +1,299 @@
+{
+  "version": 1,
+  "portableCore": [
+    "write-product-spec-san",
+    "write-tech-spec-san",
+    "spec-driven-implementation-san",
+    "implement-specs-san",
+    "create-pr-san",
+    "review-pr-san",
+    "fix-errors-san",
+    "diagnose-ci-failures-san",
+    "resolve-merge-conflicts-san",
+    "update-skill-san"
+  ],
+  "hostAdapters": [
+    "review-pr-local-san",
+    "add-feature-flag-san",
+    "promote-feature-san",
+    "remove-feature-flag-san",
+    "add-telemetry-san",
+    "triage-issue-local-san",
+    "dedupe-issue-local-san"
+  ],
+  "benchReady": [
+    "rust-unit-tests-san",
+    "warp-integration-test-san",
+    "integration-test-video-san",
+    "warp-ui-guidelines-san"
+  ],
+  "bindingGate": {
+    "required": [
+      "HOST_SPEC_ROOT",
+      "HOST_TASK_SYSTEM",
+      "HOST_VALIDATION_COMMAND",
+      "HOST_BASE_BRANCH",
+      "HOST_PR_TEMPLATE",
+      "HOST_REVIEW_OUTPUT",
+      "HOST_REVIEW_SEVERITY",
+      "HOST_BUILD_COMMAND",
+      "HOST_LINT_COMMAND",
+      "HOST_TEST_COMMAND",
+      "HOST_CI_PROVIDER",
+      "HOST_LOG_ARTIFACTS",
+      "HOST_PLAN_DESTINATION",
+      "HOST_SKILL_ROOT"
+    ]
+  },
+  "artifacts": {
+    "transplantReport": "transplant-report.md",
+    "benchManifest": "SDLC-bench/manifests/<host>-transplant.md"
+  },
+  "skills": {
+    "write-product-spec-san": {
+      "class": "portableCore",
+      "dependsOn": [],
+      "requiredBindings": [
+        "HOST_SPEC_ROOT",
+        "HOST_TASK_SYSTEM"
+      ],
+      "optionalBindings": [
+        "HOST_DESIGN_EVIDENCE"
+      ]
+    },
+    "write-tech-spec-san": {
+      "class": "portableCore",
+      "dependsOn": [
+        "write-product-spec-san"
+      ],
+      "requiredBindings": [
+        "HOST_SPEC_ROOT",
+        "HOST_VALIDATION_COMMAND"
+      ],
+      "optionalBindings": [
+        "HOST_ARCH_REVIEW"
+      ]
+    },
+    "spec-driven-implementation-san": {
+      "class": "portableCore",
+      "dependsOn": [
+        "write-product-spec-san",
+        "write-tech-spec-san",
+        "implement-specs-san"
+      ],
+      "requiredBindings": [
+        "HOST_SPEC_ROOT",
+        "HOST_TASK_SYSTEM"
+      ],
+      "optionalBindings": []
+    },
+    "implement-specs-san": {
+      "class": "portableCore",
+      "dependsOn": [
+        "write-product-spec-san",
+        "write-tech-spec-san"
+      ],
+      "requiredBindings": [
+        "HOST_VALIDATION_COMMAND"
+      ],
+      "optionalBindings": [
+        "HOST_CHANGE_MANAGEMENT"
+      ]
+    },
+    "create-pr-san": {
+      "class": "portableCore",
+      "dependsOn": [
+        "fix-errors-san"
+      ],
+      "requiredBindings": [
+        "HOST_BASE_BRANCH",
+        "HOST_PR_TEMPLATE",
+        "HOST_VALIDATION_COMMAND"
+      ],
+      "optionalBindings": [
+        "HOST_CHANGELOG_POLICY"
+      ]
+    },
+    "review-pr-san": {
+      "class": "portableCore",
+      "dependsOn": [],
+      "requiredBindings": [
+        "HOST_REVIEW_OUTPUT",
+        "HOST_REVIEW_SEVERITY"
+      ],
+      "optionalBindings": [
+        "HOST_REVIEW_AUTOMATION"
+      ]
+    },
+    "fix-errors-san": {
+      "class": "portableCore",
+      "dependsOn": [],
+      "requiredBindings": [
+        "HOST_BUILD_COMMAND",
+        "HOST_LINT_COMMAND",
+        "HOST_TEST_COMMAND"
+      ],
+      "optionalBindings": [
+        "HOST_ERROR_BUDGET"
+      ]
+    },
+    "diagnose-ci-failures-san": {
+      "class": "portableCore",
+      "dependsOn": [
+        "fix-errors-san"
+      ],
+      "requiredBindings": [
+        "HOST_CI_PROVIDER",
+        "HOST_LOG_ARTIFACTS",
+        "HOST_PLAN_DESTINATION"
+      ],
+      "optionalBindings": []
+    },
+    "resolve-merge-conflicts-san": {
+      "class": "portableCore",
+      "dependsOn": [],
+      "requiredBindings": [
+        "HOST_VALIDATION_COMMAND"
+      ],
+      "optionalBindings": [
+        "HOST_CONFLICT_EXTRACTOR"
+      ]
+    },
+    "update-skill-san": {
+      "class": "portableCore",
+      "dependsOn": [],
+      "requiredBindings": [
+        "HOST_SKILL_ROOT"
+      ],
+      "optionalBindings": [
+        "HOST_SKILL_VALIDATOR",
+        "HOST_REVIEW_LOOP"
+      ]
+    },
+    "review-pr-local-san": {
+      "class": "hostAdapter",
+      "dependsOn": [
+        "review-pr-san"
+      ],
+      "requiredBindings": [
+        "HOST_REPO_CONVENTIONS"
+      ],
+      "optionalBindings": [
+        "HOST_PR_MEDIA_POLICY",
+        "HOST_LABEL_TAXONOMY"
+      ]
+    },
+    "add-feature-flag-san": {
+      "class": "hostAdapter",
+      "dependsOn": [
+        "promote-feature-san",
+        "remove-feature-flag-san"
+      ],
+      "requiredBindings": [
+        "HOST_FEATURE_FLAG_SYSTEM",
+        "HOST_FLAG_REGISTRY"
+      ],
+      "optionalBindings": [
+        "HOST_DEFAULT_ROLLOUT_CHANNELS"
+      ]
+    },
+    "promote-feature-san": {
+      "class": "hostAdapter",
+      "dependsOn": [
+        "remove-feature-flag-san"
+      ],
+      "requiredBindings": [
+        "HOST_RELEASE_CHANNEL_MODEL"
+      ],
+      "optionalBindings": [
+        "HOST_DEFAULT_ROLLOUT_CHANNELS",
+        "HOST_CHANGELOG_POLICY"
+      ]
+    },
+    "remove-feature-flag-san": {
+      "class": "hostAdapter",
+      "dependsOn": [],
+      "requiredBindings": [
+        "HOST_FEATURE_FLAG_SYSTEM",
+        "HOST_VALIDATION_COMMAND"
+      ],
+      "optionalBindings": []
+    },
+    "add-telemetry-san": {
+      "class": "hostAdapter",
+      "dependsOn": [],
+      "requiredBindings": [
+        "HOST_TELEMETRY_SYSTEM",
+        "HOST_EVENT_SCHEMA"
+      ],
+      "optionalBindings": [
+        "HOST_PRIVACY_POLICY"
+      ]
+    },
+    "triage-issue-local-san": {
+      "class": "hostAdapter",
+      "dependsOn": [],
+      "requiredBindings": [
+        "HOST_TRIAGE_CORE",
+        "HOST_LABEL_TAXONOMY"
+      ],
+      "optionalBindings": [
+        "HOST_OWNER_ROUTING"
+      ]
+    },
+    "dedupe-issue-local-san": {
+      "class": "hostAdapter",
+      "dependsOn": [],
+      "requiredBindings": [
+        "HOST_DEDUPE_CORE",
+        "HOST_LABEL_TAXONOMY"
+      ],
+      "optionalBindings": [
+        "HOST_DUPLICATE_POLICY"
+      ]
+    },
+    "rust-unit-tests-san": {
+      "class": "benchReady",
+      "dependsOn": [],
+      "requiredBindings": [
+        "HOST_RUST_TEST_ROOT",
+        "HOST_TEST_CONVENTIONS"
+      ],
+      "optionalBindings": []
+    },
+    "warp-integration-test-san": {
+      "class": "benchReady",
+      "dependsOn": [],
+      "requiredBindings": [
+        "HOST_INTEGRATION_TEST_SYSTEM",
+        "HOST_ARTIFACT_DIR"
+      ],
+      "optionalBindings": [
+        "HOST_VISUAL_EVIDENCE_POLICY"
+      ]
+    },
+    "integration-test-video-san": {
+      "class": "benchReady",
+      "dependsOn": [
+        "warp-integration-test-san"
+      ],
+      "requiredBindings": [
+        "HOST_INTEGRATION_TEST_SYSTEM",
+        "HOST_VIDEO_CAPTURE",
+        "HOST_ARTIFACT_DIR"
+      ],
+      "optionalBindings": []
+    },
+    "warp-ui-guidelines-san": {
+      "class": "benchReady",
+      "dependsOn": [],
+      "requiredBindings": [
+        "HOST_UI_FRAMEWORK",
+        "HOST_DESIGN_SYSTEM"
+      ],
+      "optionalBindings": [
+        "HOST_UI_REVIEW_RULES"
+      ]
+    }
+  }
+}
