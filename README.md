@@ -2,6 +2,27 @@
 
 A portable, sanitized SDLC skill bundle for [APM](https://aka.ms/apm). Drop a production-grade software development lifecycle into any host repo in one command.
 
+## Built on (prominent acknowledgements)
+
+This package is built on and depends on three foundations:
+
+- **Warp source repository** ([github.com/warpdotdev/warp](https://github.com/warpdotdev/warp)): primary SDLC inspiration and transplant source analysis baseline.
+- **Genesis repository and architecture method** ([github.com/danielmeppiel/genesis](https://github.com/danielmeppiel/genesis)): architecture discipline used for post-transplant review and optimization loops.
+- **APM** ([github.com/microsoft/apm](https://github.com/microsoft/apm)): package transport and install runtime used to deploy these skills into `.agents/skills/`.
+
+## Start here (AI-agent executable)
+
+If you are onboarding this package into a host repository, start with [`EXECUTION_CHECKLIST.md`](./EXECUTION_CHECKLIST.md).
+
+`EXECUTION_CHECKLIST.md` is intentionally written as an **AI-agent executable runbook** (pre-transplant, mid-transplant, post-transplant, Genesis assessment, and eval loops).
+
+Recommended first operator prompt:
+
+```text
+Open EXECUTION_CHECKLIST.md and execute it phase-by-phase as an operator runbook.
+Start at Phase 0, enforce binding gates, and produce all required transplant artifacts.
+```
+
 ## Install
 
 ```bash
@@ -86,8 +107,16 @@ scripts/                       Local validation helpers
 - [`docs/provenance-matrix.md`](./docs/provenance-matrix.md) — File-level provenance for every shipped artifact
 - [`docs/release-readiness.md`](./docs/release-readiness.md) — Publication gate checklist
 - [`docs/local-validation.md`](./docs/local-validation.md) — Local APM validation workflow
-- [`EXECUTION_CHECKLIST.md`](./EXECUTION_CHECKLIST.md) — Step-by-step gate checklist for contributors
+- [`EXECUTION_CHECKLIST.md`](./EXECUTION_CHECKLIST.md) — Primary starting point; AI-agent executable operator checklist
 
-## License
+## License mapping
 
-This package is licensed under Apache-2.0. See [`LICENSE`](./LICENSE) and [`NOTICE`](./NOTICE).
+| Component | Role in this repo | License / terms |
+|---|---|---|
+| **WarpSDLC package** (`warp-apm-package/`) | Distributed package content (skills, refs, docs, scripts) | **Apache-2.0** (this repo; see [`LICENSE`](./LICENSE) and [`NOTICE`](./NOTICE)) |
+| **Genesis artifacts** (bundled in skills/) | Included architecture skill and references used by this package | **Apache-2.0** (as distributed here; original work by Daniel Meppiel; see [`NOTICE`](./NOTICE)) |
+| **Warp** ([github.com/warpdotdev/warp](https://github.com/warpdotdev/warp)) | Upstream SDLC inspiration and analysis source baseline | Dual licensing: **MIT** + **AGPL-3.0**; see upstream repo [`LICENSE-MIT`](https://github.com/warpdotdev/warp/blob/main/LICENSE-MIT) and [`LICENSE-AGPL`](https://github.com/warpdotdev/warp/blob/main/LICENSE-AGPL) |
+| **Genesis** ([github.com/danielmeppiel/genesis](https://github.com/danielmeppiel/genesis)) | Architecture method and design discipline reference | Consult upstream repo for licensing model |
+| **APM** ([github.com/microsoft/apm](https://github.com/microsoft/apm)) | External installer/runtime dependency | Governed by APM's own license/terms (see upstream repo) |
+
+For this repository itself, the governing license is **Apache-2.0**. See [`LICENSE`](./LICENSE) and [`NOTICE`](./NOTICE).
