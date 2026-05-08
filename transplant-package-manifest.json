@@ -5,41 +5,50 @@
       "path": "skills/warp-transplant-grow/agents/warp-transplant-grow.agent.md",
       "pairedSkill": "warp-transplant-grow",
       "role": "transplantOperator",
-      "status": "active"
+      "status": "active",
+      "conflictsWith": [
+        "warp-transplant-grow"
+      ],
+      "onConflict": "error"
     },
     "genesis-architect": {
       "path": "skills/genesis/agents/genesis-architect.agent.md",
       "pairedSkill": "genesis",
       "role": "architectureAdvisor",
-      "status": "active"
+      "status": "active",
+      "conflictsWith": [
+        "genesis-architect"
+      ],
+      "onConflict": "error"
     }
   },
   "portableCore": [
-    "write-product-spec-san",
-    "write-tech-spec-san",
-    "spec-driven-implementation-san",
-    "implement-specs-san",
-    "create-pr-san",
-    "review-pr-san",
-    "fix-errors-san",
-    "diagnose-ci-failures-san",
-    "resolve-merge-conflicts-san",
-    "update-skill-san"
+    "write-product-spec",
+    "write-tech-spec",
+    "research-brief",
+    "spec-driven-implementation",
+    "implement-specs",
+    "create-pr",
+    "review-pr",
+    "fix-errors",
+    "diagnose-ci-failures",
+    "resolve-merge-conflicts",
+    "update-skill"
   ],
   "hostAdapters": [
-    "review-pr-local-san",
-    "add-feature-flag-san",
-    "promote-feature-san",
-    "remove-feature-flag-san",
-    "add-telemetry-san",
-    "triage-issue-local-san",
-    "dedupe-issue-local-san"
+    "review-pr-local",
+    "add-feature-flag",
+    "promote-feature",
+    "remove-feature-flag",
+    "add-telemetry",
+    "triage-issue-local",
+    "dedupe-issue-local"
   ],
   "benchReady": [
-    "rust-unit-tests-san",
-    "warp-integration-test-san",
-    "integration-test-video-san",
-    "warp-ui-guidelines-san"
+    "rust-unit-tests",
+    "warp-integration-test",
+    "integration-test-video",
+    "warp-ui-guidelines"
   ],
   "bindingGate": {
     "required": [
@@ -57,7 +66,16 @@
       "HOST_LOG_ARTIFACTS",
       "HOST_PLAN_DESTINATION",
       "HOST_SKILL_ROOT"
-    ]
+    ],
+    "perScope": {
+      "required": [
+        "HOST_BUILD_COMMAND",
+        "HOST_TEST_COMMAND",
+        "HOST_LINT_COMMAND",
+        "HOST_VALIDATION_COMMAND",
+        "HOST_LOG_ARTIFACTS"
+      ]
+    }
   },
   "artifacts": {
     "transplantReport": "transplant-report.md",
@@ -67,7 +85,7 @@
     "preview": "transplant-preview.md"
   },
   "skills": {
-    "write-product-spec-san": {
+    "write-product-spec": {
       "class": "portableCore",
       "dependsOn": [],
       "requiredBindings": [
@@ -78,10 +96,10 @@
         "HOST_DESIGN_EVIDENCE"
       ]
     },
-    "write-tech-spec-san": {
+    "write-tech-spec": {
       "class": "portableCore",
       "dependsOn": [
-        "write-product-spec-san"
+        "write-product-spec"
       ],
       "requiredBindings": [
         "HOST_SPEC_ROOT",
@@ -91,12 +109,12 @@
         "HOST_ARCH_REVIEW"
       ]
     },
-    "spec-driven-implementation-san": {
+    "spec-driven-implementation": {
       "class": "portableCore",
       "dependsOn": [
-        "write-product-spec-san",
-        "write-tech-spec-san",
-        "implement-specs-san"
+        "write-product-spec",
+        "write-tech-spec",
+        "implement-specs"
       ],
       "requiredBindings": [
         "HOST_SPEC_ROOT",
@@ -104,11 +122,11 @@
       ],
       "optionalBindings": []
     },
-    "implement-specs-san": {
+    "implement-specs": {
       "class": "portableCore",
       "dependsOn": [
-        "write-product-spec-san",
-        "write-tech-spec-san"
+        "write-product-spec",
+        "write-tech-spec"
       ],
       "requiredBindings": [
         "HOST_VALIDATION_COMMAND"
@@ -117,10 +135,10 @@
         "HOST_CHANGE_MANAGEMENT"
       ]
     },
-    "create-pr-san": {
+    "create-pr": {
       "class": "portableCore",
       "dependsOn": [
-        "fix-errors-san"
+        "fix-errors"
       ],
       "requiredBindings": [
         "HOST_BASE_BRANCH",
@@ -131,7 +149,7 @@
         "HOST_CHANGELOG_POLICY"
       ]
     },
-    "review-pr-san": {
+    "review-pr": {
       "class": "portableCore",
       "dependsOn": [],
       "requiredBindings": [
@@ -142,7 +160,7 @@
         "HOST_REVIEW_AUTOMATION"
       ]
     },
-    "fix-errors-san": {
+    "fix-errors": {
       "class": "portableCore",
       "dependsOn": [],
       "requiredBindings": [
@@ -154,10 +172,10 @@
         "HOST_ERROR_BUDGET"
       ]
     },
-    "diagnose-ci-failures-san": {
+    "diagnose-ci-failures": {
       "class": "portableCore",
       "dependsOn": [
-        "fix-errors-san"
+        "fix-errors"
       ],
       "requiredBindings": [
         "HOST_CI_PROVIDER",
@@ -166,7 +184,7 @@
       ],
       "optionalBindings": []
     },
-    "resolve-merge-conflicts-san": {
+    "resolve-merge-conflicts": {
       "class": "portableCore",
       "dependsOn": [],
       "requiredBindings": [
@@ -176,7 +194,7 @@
         "HOST_CONFLICT_EXTRACTOR"
       ]
     },
-    "update-skill-san": {
+    "update-skill": {
       "class": "portableCore",
       "dependsOn": [],
       "requiredBindings": [
@@ -187,10 +205,10 @@
         "HOST_REVIEW_LOOP"
       ]
     },
-    "review-pr-local-san": {
+    "review-pr-local": {
       "class": "hostAdapter",
       "dependsOn": [
-        "review-pr-san"
+        "review-pr"
       ],
       "requiredBindings": [
         "HOST_REPO_CONVENTIONS"
@@ -200,11 +218,11 @@
         "HOST_LABEL_TAXONOMY"
       ]
     },
-    "add-feature-flag-san": {
+    "add-feature-flag": {
       "class": "hostAdapter",
       "dependsOn": [
-        "promote-feature-san",
-        "remove-feature-flag-san"
+        "promote-feature",
+        "remove-feature-flag"
       ],
       "requiredBindings": [
         "HOST_FEATURE_FLAG_SYSTEM",
@@ -214,10 +232,10 @@
         "HOST_DEFAULT_ROLLOUT_CHANNELS"
       ]
     },
-    "promote-feature-san": {
+    "promote-feature": {
       "class": "hostAdapter",
       "dependsOn": [
-        "remove-feature-flag-san"
+        "remove-feature-flag"
       ],
       "requiredBindings": [
         "HOST_RELEASE_CHANNEL_MODEL"
@@ -227,7 +245,7 @@
         "HOST_CHANGELOG_POLICY"
       ]
     },
-    "remove-feature-flag-san": {
+    "remove-feature-flag": {
       "class": "hostAdapter",
       "dependsOn": [],
       "requiredBindings": [
@@ -236,7 +254,7 @@
       ],
       "optionalBindings": []
     },
-    "add-telemetry-san": {
+    "add-telemetry": {
       "class": "hostAdapter",
       "dependsOn": [],
       "requiredBindings": [
@@ -247,7 +265,7 @@
         "HOST_PRIVACY_POLICY"
       ]
     },
-    "triage-issue-local-san": {
+    "triage-issue-local": {
       "class": "hostAdapter",
       "dependsOn": [],
       "requiredBindings": [
@@ -258,7 +276,7 @@
         "HOST_OWNER_ROUTING"
       ]
     },
-    "dedupe-issue-local-san": {
+    "dedupe-issue-local": {
       "class": "hostAdapter",
       "dependsOn": [],
       "requiredBindings": [
@@ -269,7 +287,7 @@
         "HOST_DUPLICATE_POLICY"
       ]
     },
-    "rust-unit-tests-san": {
+    "rust-unit-tests": {
       "class": "benchReady",
       "dependsOn": [],
       "requiredBindings": [
@@ -278,7 +296,7 @@
       ],
       "optionalBindings": []
     },
-    "warp-integration-test-san": {
+    "warp-integration-test": {
       "class": "benchReady",
       "dependsOn": [],
       "requiredBindings": [
@@ -289,10 +307,10 @@
         "HOST_VISUAL_EVIDENCE_POLICY"
       ]
     },
-    "integration-test-video-san": {
+    "integration-test-video": {
       "class": "benchReady",
       "dependsOn": [
-        "warp-integration-test-san"
+        "warp-integration-test"
       ],
       "requiredBindings": [
         "HOST_INTEGRATION_TEST_SYSTEM",
@@ -301,7 +319,7 @@
       ],
       "optionalBindings": []
     },
-    "warp-ui-guidelines-san": {
+    "warp-ui-guidelines": {
       "class": "benchReady",
       "dependsOn": [],
       "requiredBindings": [
@@ -311,6 +329,19 @@
       "optionalBindings": [
         "HOST_UI_REVIEW_RULES"
       ]
+    },
+    "research-brief": {
+      "class": "portableCore",
+      "dependsOn": [
+        "write-tech-spec"
+      ],
+      "requiredBindings": [
+        "HOST_SPEC_ROOT",
+        "HOST_PLAN_DESTINATION"
+      ],
+      "optionalBindings": [
+        "HOST_RESEARCH_SOURCES"
+      ]
     }
   },
   "utilitySkills": [
@@ -319,7 +350,8 @@
     "package-compliance-review",
     "transplant-policy-pack",
     "transplant-workflow-pack",
-    "genesis"
+    "genesis",
+    "warp-transplant-undo"
   ],
   "modeProfiles": {
     "skills-only": {

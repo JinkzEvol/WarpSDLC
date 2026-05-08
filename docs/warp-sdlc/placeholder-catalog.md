@@ -51,6 +51,8 @@ bind host-specific details without reintroducing Warp-specific text.
 | `HOST_DESIGN_SYSTEM` | Shared UI primitives | component library, theme tokens, none |
 | `HOST_UI_REVIEW_RULES` | UI review expectations | accessibility checklist, screenshot rules |
 | `HOST_CHANGE_MANAGEMENT` | How spec drift is recorded | ADR, decisions log, PR notes |
+| `HOST_RESEARCH_SOURCES` | Authoritative internal source roots for research brief | internal wiki, design library, vendor docs root |
+| `HOST_SOP_OWNER` | Owner responsible for SOP review of AI-authored policy drafts | team name, person, role |
 
 ## Comment syntax
 

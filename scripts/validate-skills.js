@@ -187,16 +187,34 @@ function validateSkillDirectory(skillName, manifestSkills, placeholderCatalogIds
   }
 
   const manifestEntry = manifestSkills?.[skillName];
-  // Utility package skills are intentionally outside the transplant manifest.
-  // Only the sanitized host-facing skill layer is required to have manifest
-  // entries.
-  if (skillName.endsWith("-san") && !manifestEntry) {
-    fail(`Missing manifest entry for sanitized skill ${skillName}`);
-    return;
+
+  // Check if this is a managed skill (portableCore, hostAdapters, or benchReady)
+  // that is missing a manifest entry
+  if (transplantManifest) {
+    const allManagedSkills = new Set([
+      ...(transplantManifest.portableCore ?? []),
+      ...(transplantManifest.hostAdapters ?? []),
+      ...(transplantManifest.benchReady ?? []),
+    ]);
+
+    if (allManagedSkills.has(skillName) && !manifestEntry) {
+      fail(`Missing manifest entry for managed skill ${skillName}`);
+      return;
+    }
   }
 
   if (!manifestEntry) {
     return;
+  }
+
+  // PR-01: description must mention at least one required binding
+  const required = manifestEntry.requiredBindings ?? [];
+  if (required.length > 0) {
+    const desc = frontmatter.description || "";
+    const mentioned = required.some((b) => desc.includes(b));
+    if (!mentioned) {
+      fail(`${skillName}: description must mention at least one of: ${required.join(", ")}`);
+    }
   }
 
   const manifestBindings = new Set([
