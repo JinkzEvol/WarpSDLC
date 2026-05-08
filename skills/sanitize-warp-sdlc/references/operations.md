@@ -6,6 +6,9 @@
 - Target set is the sanitized skill directories under `skills/` whose names end
   in `-san`.
 - Placeholder comments must use the ids from `docs/warp-sdlc/placeholder-catalog.md`.
+- Group and dependency metadata stay in `transplant-package-manifest.json` and
+  `../warp-transplant-grow/references/sanitized-manifest.md`; do not commit
+  extra generated `generated-*.md` manifests here.
 
 ## Output groups
 

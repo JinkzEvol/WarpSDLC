@@ -37,7 +37,7 @@ sequenceDiagram
     U->>S: generate or refresh sanitized layer
     S->>M: read classification and placeholders
     S->>S: rewrite approved primitives as -san skills
-    S-->>U: generated manifest
+    S-->>U: refreshed canonical manifests
     U->>T: transplant into chosen host
     T->>T: run binding audit gate
     T->>H: install portable core skills

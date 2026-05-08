@@ -11,3 +11,5 @@ Thumbs.db
 *~
 .env
 .env.local
+skills/sanitize-warp-sdlc/references/generated-*.md
+skills/sanitize-warp-sdlc/references/generated/
