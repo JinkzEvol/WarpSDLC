@@ -1,6 +1,6 @@
 # WarpSDLC — APM Skill Bundle
 
-A portable, sanitized SDLC skill bundle for [APM](https://aka.ms/apm). Drop a production-grade software development lifecycle into any host repo in one command.
+A portable, SDLC skill bundle for [APM](https://aka.ms/apm). Drop a production-grade software development lifecycle into any host repo in one command.
 
 ![WarpSDLC Diagram](./assets/images/warpsdlc-diagram.png)
 
