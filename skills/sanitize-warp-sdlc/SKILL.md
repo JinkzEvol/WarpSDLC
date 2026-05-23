@@ -23,8 +23,10 @@ skill layer from the Warp-only analysis corpus.
    repo text through unchanged.
 3. Preserve placeholder comments wherever the host repo must bind a policy,
    path, command, label set, or review contract.
-4. Emit or refresh `references/generated-manifest.md` with generated skills,
-   conditional skills, and bench-only notes.
+4. Keep class/group membership aligned with the canonical manifests:
+   `transplant-package-manifest.json` and
+   `../warp-transplant-grow/references/sanitized-manifest.md`. Do not emit
+   additional generated `-san` manifest files under `references/`.
 5. If a source primitive is blocked or depends on a missing core primitive,
    record that in the manifest instead of forcing a broken skill.
 
@@ -41,4 +43,5 @@ skill layer from the Warp-only analysis corpus.
 - `references/analysis/sanitization-matrix.md`
 - `references/analysis/placeholder-catalog.md`
 - `references/operations.md`
-- `references/generated-manifest.md`
+- `../warp-transplant-grow/references/sanitized-manifest.md`
+- `../../transplant-package-manifest.json`

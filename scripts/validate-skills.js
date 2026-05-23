@@ -12,6 +12,12 @@ const bundledTransplantManifestPath = path.join(
   "transplant-package-manifest.json"
 );
 const placeholderCatalogPath = path.join(repoRoot, "docs", "warp-sdlc", "placeholder-catalog.md");
+const sanitizeGeneratedReferencesDir = path.join(
+  repoRoot,
+  "skills",
+  "sanitize-warp-sdlc",
+  "references"
+);
 
 function fail(message) {
   console.error(message);
@@ -113,6 +119,23 @@ function parsePlaceholdersFromSkill(content) {
   }
 
   return placeholderIds;
+}
+
+function validateNoGeneratedSanitizeArtifacts() {
+  if (!fs.existsSync(sanitizeGeneratedReferencesDir)) {
+    return;
+  }
+
+  const generatedReferences = fs
+    .readdirSync(sanitizeGeneratedReferencesDir, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && /^generated-.*\.md$/i.test(entry.name))
+    .map((entry) => entry.name);
+
+  if (generatedReferences.length > 0) {
+    fail(
+      `Generated sanitize reference artifacts must not be committed: ${generatedReferences.join(", ")}`
+    );
+  }
 }
 
 function setDifference(left, right) {
@@ -316,6 +339,7 @@ for (const skillName of skillDirectories) {
 }
 
 validateTransplantManifest(transplantManifest, skillDirectories, placeholderCatalogIds);
+validateNoGeneratedSanitizeArtifacts();
 
 if (process.exitCode) {
   process.exit(process.exitCode);
